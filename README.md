@@ -1,66 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Random User Demo
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Thank you for checking out this project.
 
-## About Laravel
+To get started you will need the GNU `make` utility and Docker Desktop installed and running
+with `docker-compose` and ports `80` & `5173` available.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The default Makefile target init: will take care of first run configuration tasks such as installing dependencies and building the Frontend.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Run these three commands to start the app for the first time.
 
-## Learning Laravel
+ - `make`
+ - `make up`
+ - `make migrate`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The app should now be available at http://localhost/
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Development Environment
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Frontend HMR Development Server
 
-## Laravel Sponsors
+To run the Vite development server for HMR reloading of PHP & JavaScript
+during development substitute `make dev` for `make up`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Frontend Build Command
+To build new bundles of Frontend assets after development is finished run `make npm-build`.
 
-### Premium Partners
+# Full Makefile Target Reference
+### **Commands**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### `init`
+Sets up the application for the first time by running:
+- `composer-install`
+- `npm-install`
+- `copy-env-example`
+- `generate-app-key`
+- `npm-build`
 
-## Contributing
+#### `copy-env-example`
+Copies the `.env.example` file to `.env` if it does not exist.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### `generate-app-key`
+Generates the Laravel application key using `php artisan key:generate`.
 
-## Code of Conduct
+#### `composer-install`
+Installs Composer dependencies using `composer install`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### `npm-install`
+Installs Node.js dependencies using `npm install`.
 
-## Security Vulnerabilities
+#### `npm-build`
+Builds the frontend assets using `npm run build`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### `check-docker-compose-up`
+Checks that all required services (`app`, `caddy`, `mysql`) are running with `docker-compose ps`. If any service is not running, it provides an error message.
 
-## License
+#### `migrate`
+Runs Laravel migrations (`php artisan migrate`) to apply pending migrations.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### `migrate-fresh`
+Resets the database and runs all migrations from scratch using `php artisan migrate:fresh`.
+
+#### `migrate-seed`
+Runs migrations and seeds the database using `php artisan migrate --seed`.
+
+#### `artisan`
+Runs any given Artisan command. Example usage: `make artisan cmd="cache:clear"`.
+
+#### `up`
+Brings up the Docker Compose environment in the background (`docker-compose up -d`) and checks for pending migrations.
+
+#### `dev`
+Brings up the Docker Compose environment with the frontend development server (`docker-compose --profile frontend up -d`) and checks for pending migrations.
+
+#### `check-migration`
+Checks the status of migrations, waits for the app to be ready, and provides a warning if there are any pending migrations. It recommends running `make migrate` or `make migrate-seed` to apply them.
+
+#### `down`
+Stops the Docker Compose environment, including the frontend profile if running (`docker-compose --profile frontend down`).
+
+#### `restart`
+Restarts the Docker Compose environment. If the `node` service is running, it restarts with the frontend profile. Otherwise, it restarts normally without the frontend profile.
+
+---
+
+You can use the commands by running `make <command>` from the command line.
+
+Example:
+```bash
+make              # Initialize the app
+make dev          # Start development environment
+make migrate      # Apply migrations
+make restart      # Restart the environment
