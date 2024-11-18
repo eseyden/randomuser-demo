@@ -29,6 +29,10 @@ npm-install:
 	@echo "Installing npm dependencies..."
 	@$(DOCKER_COMPOSE) run --rm $(NODE_SERVICE) npm install
 
+npm-install-package:
+	@echo "Installing npm dependencies..."
+	@$(DOCKER_COMPOSE) run --rm $(NODE_SERVICE) npm install $(package)
+
 npm-build:
 	@echo "Building frontend assets..."
 	@$(DOCKER_COMPOSE) run --rm $(NODE_SERVICE) npm run build
