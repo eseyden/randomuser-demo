@@ -2,7 +2,10 @@
  * StackedLayout - A Tailwind UI Catalyst based Layout Component
  *
  * StackedLayout provides a base responsive layout for web applications.
- * It has been modified from the original to add a disableSidebar prop.
+ *
+ * It has been modified from the original
+ * adding a disableSidebar prop
+ * and moving the sidebar menu to the right side.
  *
  * https://catalyst.tailwindui.com/docs/stacked-layout
  *
@@ -37,7 +40,7 @@ function MobileSidebar({ open, close, children }) {
             />
             <Headless.DialogPanel
                 transition
-                className="fixed inset-y-0 w-full max-w-80 p-2 transition duration-300 ease-in-out data-[closed]:-translate-x-full"
+                className="fixed inset-y-0 right-0 w-full max-w-80 p-2 transition duration-300 ease-in-out data-[closed]:translate-x-full"
             >
                 <div className="flex h-full flex-col rounded-lg bg-white shadow-sm ring-1 ring-zinc-950/5 dark:bg-zinc-900 dark:ring-white/10">
                     <div className="-mb-3 px-4 pt-3">
@@ -71,7 +74,8 @@ export function StackedLayout({ navbar, sidebar, children, disableSidebar }) {
             )}
 
             {/* Navbar */}
-            <header className="flex items-center px-4">
+            <header className="flex items-center justify-between px-4">
+                <div className="min-w-0 flex-1">{navbar}</div>
                 {disableSidebar ? null : (
                     <div className="py-2.5 lg:hidden">
                         <NavbarItem
@@ -82,7 +86,6 @@ export function StackedLayout({ navbar, sidebar, children, disableSidebar }) {
                         </NavbarItem>
                     </div>
                 )}
-                <div className="min-w-0 flex-1">{navbar}</div>
             </header>
 
             {/* Content */}
