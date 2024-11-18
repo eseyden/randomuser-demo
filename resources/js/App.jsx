@@ -1,28 +1,42 @@
-import logo from "../images/paw.svg";
-import "./App.css";
+import {
+    Navbar,
+    NavbarDivider,
+    NavbarItem,
+    NavbarLabel,
+    NavbarSection,
+} from "./Components/Navbar.jsx";
+import { StackedLayout } from "./Components/StackedLayout.jsx";
+import { Logo } from "@js/Components/Logo.jsx";
+import { Link } from "@js/Components/Link.jsx";
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img
-                    src={logo}
-                    className="App-logo bg-gradient-to-b from-sky to-white rounded-full"
-                    alt="logo"
-                />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <StackedLayout
+            navbar={
+                <Navbar>
+                    <Link href="/" aria-label="Home">
+                        <Logo className="size-10 sm:size-8" />
+                    </Link>
+                    <NavbarLabel>Random User Demo</NavbarLabel>
+                </Navbar>
+            }
+            disableSidebar={true}
+        >
+            <h1>Hello World</h1>
+        </StackedLayout>
+    );
+}
+
+function NavigationItems() {
+    return (
+        <>
+            <NavbarDivider />
+            <NavbarSection>
+                <NavbarItem href="/" current>
+                    Home
+                </NavbarItem>
+            </NavbarSection>
+        </>
     );
 }
 

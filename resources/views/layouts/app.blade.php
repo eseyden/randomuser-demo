@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-white lg:bg-zinc-100 dark:bg-zinc-900 dark:lg:bg-zinc-950">
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="{{asset('favicon.ico')}}" />
