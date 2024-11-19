@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\RandomuserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Randomuser extends Model
 {
-    /** @use HasFactory<\Database\Factories\RandomuserFactory> */
+    /** @use HasFactory<RandomuserFactory> */
     use HasFactory;
 
     protected $fillable = [

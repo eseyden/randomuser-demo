@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\RandomUserApiRepository;
 use App\Repositories\RandomUserRepositoryInterface;
 use App\Services\RandomUserApiService;
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,8 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(RandomUserApiService::class, function ($app) {
-            $client = new \GuzzleHttp\Client([
+        $this->app->singleton(RandomUserApiService::class, function () {
+            $client = new Client([
                 'base_uri' => config('services.random_user.base_uri'),
                 'headers' => [
                     'Accept' => 'application/json',

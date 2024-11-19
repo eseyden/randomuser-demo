@@ -22,12 +22,10 @@ class ImportRandomUsers extends Command
      */
     protected $description = 'Command description';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle(RandomUserRepositoryInterface $randomUserRepository)
+    public function handle(RandomUserRepositoryInterface $randomUserRepository): void
     {
         $userData = $randomUserRepository->getRandomUsers(); // Fetch users from repository
+        /** @noinspection PhpUndefinedMethodInspection */
         Randomuser::upsert($userData, uniqueBy: ['first_name', 'last_name', 'birthday']); // Use upsert to prevent dupes
     }
 }
