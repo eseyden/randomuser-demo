@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-white lg:bg-zinc-100 dark:bg-zinc-900 dark:lg:bg-zinc-950">
+<html lang="en" class="bg-white lg:bg-zinc-100 dark:bg-zinc-900 dark:lg:bg-zinc-950 dark:text-white">
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="{{asset('favicon.ico')}}" />
@@ -12,10 +12,10 @@
     />
     <link rel="apple-touch-icon" href="{{asset('logo192.png')}}" />
     <link rel="manifest" href="{{asset('manifest.json')}}" />
-    <title>Erica's Randomuser Demo</title>
+    <title>Erica's Random User Demo</title>
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @viteReactRefresh
-        @vite(['resources/js/index.jsx'])
+        @vite('resources/js/index.jsx')
     @endif
 </head>
 <body>

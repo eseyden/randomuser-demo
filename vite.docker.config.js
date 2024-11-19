@@ -4,6 +4,10 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 export default defineConfig({
+    server: {
+        host: true,
+        hmr: { host: "localhost" },
+    },
     plugins: [
         laravel({
             input: ["resources/js/index.jsx"],
