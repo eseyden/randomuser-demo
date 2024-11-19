@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'random_user' => [
+        'base_uri' => env('RANDOM_USER_API_BASE URL', 'https://randomuser.me/api'),
+    ],
+
 ];

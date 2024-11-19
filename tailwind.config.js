@@ -16,7 +16,7 @@ export default {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                red: "rgb(237,28,36)",
+                primary: "rgb(237,28,36)",
                 brown: "rgb(78,54,41)",
                 gold: "rgb(255,199,44)",
                 gray: "rgb(152,164,174)",
@@ -32,12 +32,3 @@ export default {
     },
     plugins: [],
 };
-/*
-
-            colors: {
-                red: "#ED1C24",
-                brown: "#4E3629",
-                gold: "#FFC72C",
-                gray: "#98A4AE",
-            },
- */

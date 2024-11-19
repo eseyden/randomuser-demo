@@ -22,6 +22,7 @@ function App() {
             }
             disableSidebar={true}
         >
+            <Logo strokeWidth={5} className={"fill-brown"} />
             <h1>Hello World</h1>
         </StackedLayout>
     );
