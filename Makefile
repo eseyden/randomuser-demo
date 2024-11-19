@@ -60,6 +60,10 @@ migrate-seed: check-docker-compose-up
 artisan: check-docker-compose-up
 	@$(DOCKER_COMPOSE) exec $(APP_SERVICE) php artisan $(cmd)
 
+# Import Random Users
+import-users: check-docker-compose-up
+	@$(DOCKER_COMPOSE) exec $(APP_SERVICE) php artisan app:import-random-users
+
 # Bring up the Docker Compose environment
 up:
 	@$(DOCKER_COMPOSE) up -d

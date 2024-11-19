@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthday');
+            $table->unique(['first_name', 'last_name', 'birthday']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
