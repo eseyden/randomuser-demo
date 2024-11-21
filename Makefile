@@ -8,11 +8,8 @@ NODE_SERVICE = node
 REQUIRED_SERVICES = app caddy mysql
 
 # Fresh checkout make target, prep app for running
-init: composer-install npm-install copy-env-example generate-app-key npm-build up check-migration migrate down
+init: composer-install npm-install copy-env-example generate-app-key npm-build up migrate down
 	@echo "Initialization complete! Start app with 'make up'."
-
-clean:
-	rm -f ./public/hot
 
 copy-env-example:
 	@echo "Configuring environment..."
@@ -36,7 +33,7 @@ npm-install-package:
 	@echo "Installing npm dependencies..."
 	@$(DOCKER_COMPOSE) run --rm $(NODE_SERVICE) npm install $(package)
 
-npm-build:
+npm-build: clean-hot
 	@echo "Building frontend assets..."
 	@$(DOCKER_COMPOSE) run --rm $(NODE_SERVICE) npm run build
 
@@ -101,3 +98,12 @@ restart:
 		$(DOCKER_COMPOSE) --profile frontend down && $(DOCKER_COMPOSE) --profile frontend up -d  || \
 		$(DOCKER_COMPOSE) down && $(DOCKER_COMPOSE) up -d
 
+
+clean: clean-hot clean-vendor clean-node
+
+clean-hot:
+	rm -f ./public/hot
+clean-vendor:
+	rm -rf ./vendor
+clean-node:
+	rm -rf ./node_modules

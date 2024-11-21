@@ -9,8 +9,16 @@ services:
         networks:
             - laravel_network
         depends_on:
-            - mysql
-            - caddy
+            mysql:
+                condition: service_healthy
+
+    scheduler:
+        extends:
+            service: app
+        container_name: laravel_scheduler
+        entrypoint: [ "sh", "-c", "while true; do php artisan schedule:run --verbose --no-interaction & sleep 60; done" ]
+        networks:
+            - laravel_network
 
     node:
         image: node:20
@@ -30,16 +38,18 @@ services:
         image: mysql:8.0
         container_name: laravel_mysql
         environment:
-            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
             MYSQL_DATABASE: laravel
             MYSQL_USER: laravel
             MYSQL_PASSWORD: secret
-        ports:
-            - "3306:3306"
         volumes:
             - mysql_data:/var/lib/mysql
         networks:
             - laravel_network
+        healthcheck:
+            test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+            timeout: 5s
+            retries: 10
 
     caddy:
         image: caddy:latest
@@ -51,6 +61,8 @@ services:
             - "80:80"
         networks:
             - laravel_network
+        depends_on:
+            - app
 
 networks:
     laravel_network:

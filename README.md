@@ -2,94 +2,75 @@
 
 Thank you for checking out this project.
 
-To get started you will need the GNU `make` utility and Docker Desktop installed and running
+To get started you will need [Docker Desktop](https://docs.docker.com/get-started/get-docker/) and optionally the GNU
+`make` utility
 with `docker-compose` and ports `80` & `5173` available.
 
 ## Setup
 
-The default Makefile target init: will take care of first run configuration tasks such as installing dependencies and building the Frontend.
+### Automated Setup with Make
 
-Run these three commands to start the app for the first time.
+Run these two commands to start the app for the first time.
 
- - `make`
- - `make up`
- - `make migrate`
+- `make`
+    - Installs dependencies, builds assets and runs migrations
+- `make up`
+    - Runs `docker-compose up` and checks if migrations are needed
 
 The app should now be available at http://localhost/
 
+[Documentation for the Makefile](docs/Makefile.md)
+
+### Manual Setup with docker-compose
+
+With just docker installed run these commands:
+
+```bash
+docker-compose run --rm app composer install
+docker-compose run --rm node npm install
+cp .env.example .env
+docker-compose run --rm app php artisan key:generate
+docker-compose run --rm node npm run build
+docker-compose up -d
+docker-compose exec app php artisan migrate
+```
+
+The app should now be available at http://localhost/
+
+## Use
+
+### Importing Random Users
+
+A scheduler setup in the `docker-compose.yaml` file to run `app:import-random-users` to run every five minutes.
+This is configured in `routes/console.php`
+
+It may be run manually while the app is up via these two commands:
+
+- `make import-users`
+- `docker-compose exec app php artisan app:import-random-users`
+
+You can reset the database with this command:
+
+- `make migrate-fresh`
+- `docker-compose exec app php artisan migrate:fresh`
+
 ## Development Environment
+
+### Frontend Build Command
+
+To build new bundles of Frontend assets after development is finished run `make npm-build`.
 
 ### Frontend HMR Development Server
 
-To run the Vite development server for HMR reloading of PHP & JavaScript
-during development substitute `make dev` for `make up`.
+### Local Node Development
 
-### Frontend Build Command
-To build new bundles of Frontend assets after development is finished run `make npm-build`.
+Frontend development is usually done with a local copy of Node; I recommend installing it
+with [Volta](https://volta.sh/).
 
-# Full Makefile Target Reference
-### **Commands**
+Running `npm install` and `npm run dev` will provide a development environment
+that automatically reloads components as they are changed.
 
-#### `init`
-Sets up the application for the first time by running:
-- `composer-install`
-- `npm-install`
-- `copy-env-example`
-- `generate-app-key`
-- `npm-build`
+### Docker Node Development
 
-#### `copy-env-example`
-Copies the `.env.example` file to `.env` if it does not exist.
-
-#### `generate-app-key`
-Generates the Laravel application key using `php artisan key:generate`.
-
-#### `composer-install`
-Installs Composer dependencies using `composer install`.
-
-#### `npm-install`
-Installs Node.js dependencies using `npm install`.
-
-#### `npm-build`
-Builds the frontend assets using `npm run build`.
-
-#### `check-docker-compose-up`
-Checks that all required services (`app`, `caddy`, `mysql`) are running with `docker-compose ps`. If any service is not running, it provides an error message.
-
-#### `migrate`
-Runs Laravel migrations (`php artisan migrate`) to apply pending migrations.
-
-#### `migrate-fresh`
-Resets the database and runs all migrations from scratch using `php artisan migrate:fresh`.
-
-#### `migrate-seed`
-Runs migrations and seeds the database using `php artisan migrate --seed`.
-
-#### `artisan`
-Runs any given Artisan command. Example usage: `make artisan cmd="cache:clear"`.
-
-#### `up`
-Brings up the Docker Compose environment in the background (`docker-compose up -d`) and checks for pending migrations.
-
-#### `dev`
-Brings up the Docker Compose environment with the frontend development server (`docker-compose --profile frontend up -d`) and checks for pending migrations.
-
-#### `check-migration`
-Checks the status of migrations, waits for the app to be ready, and provides a warning if there are any pending migrations. It recommends running `make migrate` or `make migrate-seed` to apply them.
-
-#### `down`
-Stops the Docker Compose environment, including the frontend profile if running (`docker-compose --profile frontend down`).
-
-#### `restart`
-Restarts the Docker Compose environment. If the `node` service is running, it restarts with the frontend profile. Otherwise, it restarts normally without the frontend profile.
-
----
-
-You can use the commands by running `make <command>` from the command line.
-
-Example:
-```bash
-make              # Initialize the app
-make dev          # Start development environment
-make migrate      # Apply migrations
-make restart      # Restart the environment
+The development environment can be run with a Docker container via `make dev` or
+`docker-compose --profile frontend up -d`
