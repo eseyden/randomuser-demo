@@ -1,3 +1,11 @@
+/**
+ * BirthDayOccurrence.JSX
+ *
+ * Displays notice of impending birthday occurrence
+ *
+ */
+
+// date-fns is the new Moment.js
 import {
     differenceInDays,
     isFuture,
@@ -10,10 +18,13 @@ import {
 export default function BirthDayOccurrence({ birthday }) {
     const baseClassNames =
         "rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset";
+
+    // When is the birthday this year?
     const birthdayDate = setYear(
         parse(birthday, "yyyy-MM-dd", new Date()),
         new Date().getFullYear(),
     );
+
     if (isToday(birthdayDate)) {
         return (
             <div
@@ -39,7 +50,7 @@ export default function BirthDayOccurrence({ birthday }) {
         );
     }
     if (isFuture(birthdayDate)) {
-        const daysUntil = differenceInDays(birthdayDate, new Date());
+        const daysUntil = differenceInDays(birthdayDate, new Date()); // Countdown until birthday for fun
         return (
             <div
                 className={

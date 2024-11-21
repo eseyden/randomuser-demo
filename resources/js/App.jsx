@@ -1,3 +1,9 @@
+/**
+ * App.JSX
+ *
+ * React Application Scaffolding
+ *
+ */
 import { Navbar, NavbarLabel } from "./Components/Navbar.jsx";
 import { StackedLayout } from "./Components/StackedLayout.jsx";
 import { Logo } from "@js/Components/Logo.jsx";
@@ -6,6 +12,7 @@ import RandomUsersProvider from "@js/Providers/RandomUsersProvider.jsx";
 import UserList from "@/Components/UserList.jsx";
 
 function App() {
+    // Stacked layout for a responsive application container & navigation
     return (
         <StackedLayout
             navbar={
@@ -18,6 +25,7 @@ function App() {
             }
             disableSidebar={true}
         >
+            {/* Create app state to prevent prop drilling */}
             <RandomUsersProvider>
                 <UserList />
             </RandomUsersProvider>

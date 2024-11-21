@@ -1,3 +1,9 @@
+/**
+ * randomUsersReducer.JS
+ *
+ * This reducer defines the application state and handles state changes
+ *
+ */
 export const initialState = {
     users: [],
     loading: false,
@@ -10,23 +16,30 @@ export const initialState = {
 
 export function usersReducer(state, action) {
     switch (action.type) {
+        // Loading state
         case "FETCH_START":
             return { ...state, loading: true, error: null };
+        // Loading finished
         case "FETCH_END":
             return { ...state, loading: false, error: null, fetched: true };
+        // Add additional users to store during loading
         case "LOAD_USERS":
             return {
                 ...state,
                 users: [...state.users, ...action.users],
                 loadingPercentage: action.loadingPercentage,
             };
+        // Something bad happened, take note
         case "FETCH_ERROR":
             return { ...state, loading: false, error: action.error };
+        // Sort application data
         case "SORT_USERS":
+            // Calculate appropriate sort direction
             const newSortDirection =
                 state.sort === action.sort && state.sortDirection === "asc"
                     ? "desc"
                     : "asc";
+            // Sort the users according to action's sort type
             const sortedUsers = sortUsers(
                 state.users,
                 action.sort,
@@ -39,11 +52,13 @@ export function usersReducer(state, action) {
                 sort: action.sort,
                 sortDirection: newSortDirection,
             };
+        // All other action types are no-ops
         default:
             return state;
     }
 }
 
+// Sorting algorithm
 const sortUsers = (users, sortField, sortDirection) => {
     return users.slice().sort((a, b) => {
         let valueA, valueB;
