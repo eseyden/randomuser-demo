@@ -12,9 +12,11 @@ class RandomUserApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true;
-
-    protected $seeder = RandomUserSeeder::class;
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(RandomUserSeeder::class);
+    }
 
     public function testApiEndpointReturnsSuccessfulResponse()
     {

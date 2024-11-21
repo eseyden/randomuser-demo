@@ -15,6 +15,7 @@ export default defineConfig({
         alias: {
             "@css": resolve(__dirname, "resources/css"),
             "@js": resolve(__dirname, "resources/js"),
+            "@": resolve(__dirname, "resources/js"),
             "@images": resolve(__dirname, "resources/images"),
         },
     },

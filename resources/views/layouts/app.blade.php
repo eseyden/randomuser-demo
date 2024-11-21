@@ -13,10 +13,8 @@
     <link rel="apple-touch-icon" href="{{asset('logo192.png')}}" />
     <link rel="manifest" href="{{asset('manifest.json')}}" />
     <title>Erica's Random User Demo</title>
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @viteReactRefresh
-        @vite('resources/js/index.jsx')
-    @endif
+    @viteReactRefresh
+    @vite('resources/js/index.jsx')
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -1,13 +1,9 @@
-import {
-    Navbar,
-    NavbarDivider,
-    NavbarItem,
-    NavbarLabel,
-    NavbarSection,
-} from "./Components/Navbar.jsx";
+import { Navbar, NavbarLabel } from "./Components/Navbar.jsx";
 import { StackedLayout } from "./Components/StackedLayout.jsx";
 import { Logo } from "@js/Components/Logo.jsx";
 import { Link } from "@js/Components/Link.jsx";
+import RandomUsersProvider from "@js/Providers/RandomUsersProvider.jsx";
+import UserList from "@/Components/UserList.jsx";
 
 function App() {
     return (
@@ -22,22 +18,10 @@ function App() {
             }
             disableSidebar={true}
         >
-            <Logo strokeWidth={5} className={"fill-brown"} />
-            <h1>Hello World</h1>
+            <RandomUsersProvider>
+                <UserList />
+            </RandomUsersProvider>
         </StackedLayout>
-    );
-}
-
-function NavigationItems() {
-    return (
-        <>
-            <NavbarDivider />
-            <NavbarSection>
-                <NavbarItem href="/" current>
-                    Home
-                </NavbarItem>
-            </NavbarSection>
-        </>
     );
 }
 

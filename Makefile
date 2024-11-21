@@ -8,7 +8,7 @@ NODE_SERVICE = node
 REQUIRED_SERVICES = app caddy mysql
 
 # Fresh checkout make target, prep app for running
-init: composer-install npm-install copy-env-example generate-app-key npm-build
+init: composer-install npm-install copy-env-example generate-app-key npm-build up check-migration migrate down
 	@echo "Initialization complete! Start app with 'make up'."
 
 copy-env-example:
