@@ -11,6 +11,9 @@ REQUIRED_SERVICES = app caddy mysql
 init: composer-install npm-install copy-env-example generate-app-key npm-build up check-migration migrate down
 	@echo "Initialization complete! Start app with 'make up'."
 
+clean:
+	rm -f ./public/hot
+
 copy-env-example:
 	@echo "Configuring environment..."
 	@if [ ! -f .env ]; then \

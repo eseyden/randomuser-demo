@@ -19,7 +19,7 @@ export default {
                 primary: "rgb(237,28,36)",
                 brown: "rgb(78,54,41)",
                 gold: "rgb(255,199,44)",
-                gray: "rgb(152,164,174)",
+                secondary: "rgb(152,164,174)",
                 maroon: "rgb(112,0,46)",
                 sunset: "rgb(249,66,58)",
                 copper: "rgb(237,139,0)",
