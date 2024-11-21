@@ -12,7 +12,7 @@ class RandomUserApiController extends Controller
      */
     public function index(RandomUserRepositoryInterface $randomUserRepository)
     {
-        $randomUsers = Randomuser::paginate(100);
+        $randomUsers = Randomuser::paginate();
 
         return response()->json($randomUsers);
     }
