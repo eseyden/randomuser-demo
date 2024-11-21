@@ -41,7 +41,8 @@ The app should now be available at http://localhost/
 
 ### Importing Random Users
 
-A scheduler setup in the `docker-compose.yaml` file to run `app:import-random-users` to run every five minutes.
+Laravel's scheduler has been set up in the `docker-compose.yaml` file to run `app:import-random-users` to run every five
+minutes.
 This is configured in `routes/console.php`
 
 It may be run manually while the app is up via these two commands:
