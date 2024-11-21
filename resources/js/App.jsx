@@ -1,15 +1,18 @@
-import {
-    Navbar,
-    NavbarDivider,
-    NavbarItem,
-    NavbarLabel,
-    NavbarSection,
-} from "./Components/Navbar.jsx";
+/**
+ * App.JSX
+ *
+ * React Application Scaffolding
+ *
+ */
+import { Navbar, NavbarLabel } from "./Components/Navbar.jsx";
 import { StackedLayout } from "./Components/StackedLayout.jsx";
 import { Logo } from "@js/Components/Logo.jsx";
 import { Link } from "@js/Components/Link.jsx";
+import RandomUsersProvider from "@js/Providers/RandomUsersProvider.jsx";
+import UserList from "@/Components/UserList.jsx";
 
 function App() {
+    // Stacked layout for a responsive application container & navigation
     return (
         <StackedLayout
             navbar={
@@ -22,22 +25,11 @@ function App() {
             }
             disableSidebar={true}
         >
-            <Logo strokeWidth={5} className={"fill-brown"} />
-            <h1>Hello World</h1>
+            {/* Create app state to prevent prop drilling */}
+            <RandomUsersProvider>
+                <UserList />
+            </RandomUsersProvider>
         </StackedLayout>
-    );
-}
-
-function NavigationItems() {
-    return (
-        <>
-            <NavbarDivider />
-            <NavbarSection>
-                <NavbarItem href="/" current>
-                    Home
-                </NavbarItem>
-            </NavbarSection>
-        </>
     );
 }
 

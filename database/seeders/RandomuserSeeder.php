@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Randomuser;
 use Illuminate\Database\Seeder;
 
 class RandomuserSeeder extends Seeder
@@ -12,6 +12,6 @@ class RandomuserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Randomuser::factory()->count(75)->create();
     }
 }

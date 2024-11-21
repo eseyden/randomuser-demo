@@ -8,7 +8,7 @@
 
 export function Logo({
     className,
-    pathClassName = "stroke-primary dark:stroke-gray",
+    pathClassName = "stroke-primary dark:stroke-secondary",
     strokeWidth = 15,
 }) {
     return (

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Randomuser;
 use App\Repositories\RandomUserRepositoryInterface;
 
 class RandomUserApiController extends Controller
@@ -11,9 +12,8 @@ class RandomUserApiController extends Controller
      */
     public function index(RandomUserRepositoryInterface $randomUserRepository)
     {
-        $users = $randomUserRepository->getRandomUsers();
+        $randomUsers = Randomuser::paginate();
 
-        return $users;
-        //
+        return response()->json($randomUsers);
     }
 }

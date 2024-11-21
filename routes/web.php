@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/api/users', [RandomUserApiController::class, 'index']);
+Route::get('/api/random-users', [RandomUserApiController::class, 'index'])->name('api.random-users');
