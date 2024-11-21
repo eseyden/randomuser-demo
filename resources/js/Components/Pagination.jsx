@@ -17,16 +17,16 @@ export default function Pagination({
 
     return (
         <div>
-            <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 py-4">
+            <nav className="flex items-center justify-between border-t border-gray-300 dark:border-gray-600 px-4 sm:px-0 py-4">
                 <div className="-mt-px flex w-0 flex-1">
                     <button
                         onClick={onPreviousPage}
                         disabled={currentPage === firstPage}
-                        className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 disabled:opacity-50"
+                        className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50"
                     >
                         <ArrowLongLeftIcon
                             aria-hidden="true"
-                            className="mr-3 h-5 w-5 text-gray-400"
+                            className="mr-3 h-5 w-5 text-gray-500 dark:text-gray-400"
                         />
                         Previous
                     </button>
@@ -47,7 +47,7 @@ export default function Pagination({
                             return (
                                 <span
                                     key={`dots-${index}`}
-                                    className="px-4 pt-4 text-sm font-medium text-gray-500"
+                                    className="px-4 pt-4 text-sm font-medium text-gray-700 dark:text-gray-300"
                                 >
                                     ...
                                 </span>
@@ -66,8 +66,8 @@ export default function Pagination({
                                     onClick={() => onPageChange(number)}
                                     className={`inline-flex items-center border-t-2 ${
                                         currentPage === number
-                                            ? "border-indigo-500 text-indigo-600"
-                                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                            ? "border-indigo-600 text-indigo-700 dark:border-indigo-400 dark:text-indigo-300"
+                                            : "border-transparent text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:border-gray-400 dark:hover:border-gray-500"
                                     } px-4 pt-4 text-sm font-medium`}
                                 >
                                     {number}
@@ -79,8 +79,8 @@ export default function Pagination({
                     })}
                 </div>
 
-                <div className="md:hidden -mt-px flex flex-1 w-0 text-center ">
-                    <span className="px-4 pt-4 text-sm font-medium text-gray-500">
+                <div className="md:hidden flex text-center ">
+                    <span className="px-4 pt-4 text-sm font-medium text-gray-700 dark:text-gray-300">
                         {currentPage} of {totalPages}
                     </span>
                 </div>
@@ -88,12 +88,12 @@ export default function Pagination({
                     <button
                         onClick={onNextPage}
                         disabled={currentPage === lastPage}
-                        className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 disabled:opacity-50"
+                        className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50"
                     >
                         Next
                         <ArrowLongRightIcon
                             aria-hidden="true"
-                            className="ml-3 h-5 w-5 text-gray-400"
+                            className="ml-3 h-5 w-5 text-gray-500 dark:text-gray-400"
                         />
                     </button>
                 </div>

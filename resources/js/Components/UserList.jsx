@@ -52,11 +52,23 @@ export default function UserList() {
     return (
         <div className="flex flex-col">
             {/* Context reducer makes this easy */}
-            <div className="flex flex-row gap-3 items-center mb-4">
-                <SortButton sortKey="first_name">Sort by First Name</SortButton>
-                <SortButton sortKey="last_name">Sort by Last Name</SortButton>
-                <SortButton sortKey="birthday">Sort by Birthday</SortButton>
-                <SortButton sortKey="age">Sort by Age</SortButton>
+            <div
+                role="group"
+                aria-labelledby="sort-options-label"
+                className="flex flex-col ml-0 sm:ml-auto max-w-full sm:max-w-fit mb-4 p-4 border rounded-md shadow-md"
+            >
+                <div
+                    id="sort-options-label"
+                    className="text-lg font-semibold mb-2"
+                >
+                    Sort Options
+                </div>
+                <div className="flex sm:flex-row gap-3 items-center">
+                    <SortButton sortKey="first_name">First</SortButton>
+                    <SortButton sortKey="last_name">Last</SortButton>
+                    <SortButton sortKey="birthday">Birthday</SortButton>
+                    <SortButton sortKey="age">Age</SortButton>
+                </div>
             </div>
 
             <ul

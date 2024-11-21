@@ -50,7 +50,7 @@ export default function BirthDayOccurrence({ birthday }) {
         );
     }
     if (isFuture(birthdayDate)) {
-        const daysUntil = differenceInDays(birthdayDate, new Date()); // Countdown until birthday for fun
+        const daysUntil = differenceInDays(birthdayDate, new Date()) + 1; // Countdown until birthday for fun
         return (
             <div
                 className={
