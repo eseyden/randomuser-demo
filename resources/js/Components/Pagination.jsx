@@ -10,7 +10,7 @@ export default function Pagination({
     onNextPage,
     onPageChange,
 }) {
-    if (totalPages === 1) return null;
+    if (totalPages <= 1) return null;
     const pageNumbers = [...Array(totalPages).keys()].map((i) => i + 1);
     const firstPage = 1;
     const lastPage = totalPages;
